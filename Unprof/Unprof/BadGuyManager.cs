@@ -13,6 +13,8 @@ namespace Unprof
 {
     class BadGuyManager
     {
+        Random rand;
+
         List<BadGuy> mBadGuys;
         public List<BadGuy> BadGuys
         {
@@ -20,11 +22,11 @@ namespace Unprof
             set { mBadGuys = value; }
         }
         
-        List<Rocket> mRockets;
-        public List<Rocket> Rockets
+        List<Projectile> mProjectiles;
+        public List<Projectile> Projectiles
         {
-            get { return mRockets; }
-            set { mRockets = value; }
+            get { return mProjectiles; }
+            set { mProjectiles = value; }
         }
 
         float fTimer;
@@ -32,9 +34,11 @@ namespace Unprof
 
         public BadGuyManager(int delay)
         {
+            rand = new Random();
+
             mBadGuys = new List<BadGuy>();
-            mRockets = new List<Rocket>();
-            fTimer = 0;
+            mProjectiles = new List<Projectile>();
+            fTimer = delay;
             iDelay = delay;
         }
 
@@ -47,6 +51,7 @@ namespace Unprof
                 fTimer = fTimer - iDelay;
                 AddBadGuy();
                 AddRocket();
+                AddMeteor();
             }
 
             foreach (BadGuy badguy in mBadGuys)
@@ -62,31 +67,43 @@ namespace Unprof
             }
 
 
-            foreach (Rocket rocket in mRockets)
+            foreach (Projectile proj in mProjectiles)
             {
-                rocket.Update(gameTime);
+                proj.Update(gameTime);
             }
 
             // Clean up
-            for (int i = mRockets.Count - 1; i >= 0; i--)
+            for (int i = mProjectiles.Count - 1; i >= 0; i--)
             {
-                if (mRockets[i].IsMarkedForDeletion)
-                    mRockets.RemoveAt(i);
+                if (mProjectiles[i].IsMarkedForDeletion)
+                    mProjectiles.RemoveAt(i);
             }
         }
 
         public void AddBadGuy()
         {
             BadGuy badguy = new BadGuy(CUtil.ResourcePool.BoxerIdle, CUtil.ResourcePool.BoxerJabbing, 
-                new Vector2(800, 300), new Vector2(0.5f, 0) );
+                new Vector2(800, 300), new Vector2(0.12f, 0) );
             mBadGuys.Add(badguy);
         }
 
         public void AddRocket()
         {
             Rocket rocket = new Rocket(CUtil.ResourcePool.RocketIdle, CUtil.ResourcePool.RocketDying, 
-                new Vector2(600, 300), new Vector2(0.5f, 0) );
-            mRockets.Add(rocket);
+                new Vector2(600, 300), new Vector2(0.12f, 0) );
+            mProjectiles.Add(rocket);
+        }
+
+        public void AddMeteor()
+        {
+            float ySpeed = rand.Next(50, 100);
+            float xSpeed = rand.Next(50, 100);
+            Vector2 velocity = new Vector2(xSpeed / 500, -ySpeed / 500);
+            //Vector2 velocity = new Vector2(0, 0);
+
+            Meteor meteor = new Meteor(CUtil.ResourcePool.MeteorIdle, CUtil.ResourcePool.MeteorIdle,
+                new Vector2(600, 0), velocity );
+            mProjectiles.Add(meteor);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -95,9 +112,9 @@ namespace Unprof
             {
                 badguy.Draw(spriteBatch);
             }
-            foreach (Rocket rocket in mRockets)
+            foreach (Projectile proj in mProjectiles)
             {
-                rocket.Draw(spriteBatch);
+                proj.Draw(spriteBatch);
             }
 
         }

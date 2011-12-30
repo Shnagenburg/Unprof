@@ -33,6 +33,13 @@ namespace Unprof
             get { return mBadGuyManager; }
             set { mBadGuyManager = value; }
         }
+        
+        Terrain mTerrain;
+        public Terrain Terrain
+        {
+            get { return mTerrain; }
+            set { mTerrain = value; }
+        }
 
         VisualEffectManager mVisualEffectManager;
         public VisualEffectManager VisualEffectManager
@@ -50,7 +57,8 @@ namespace Unprof
         public GameScreen(EventHandler theScreenEvent): base(theScreenEvent)
         {
             mBoxer = new Boxer(CUtil.ResourcePool);
-            mBadGuyManager = new BadGuyManager(1000);
+            mBadGuyManager = new BadGuyManager(3000);
+            mTerrain = new Terrain(CUtil.ResourcePool.Terrain1);
             mVisualEffectManager = new VisualEffectManager();
         }
 
@@ -65,6 +73,7 @@ namespace Unprof
         {
             mBoxer.Update(gameTime, keyState, prevState);
             mBadGuyManager.Update(gameTime);
+            mTerrain.Update(gameTime);
             mVisualEffectManager.Update(gameTime);
             base.Update(gameTime);
         }
@@ -75,6 +84,7 @@ namespace Unprof
         /// <param name="theBatch"></param>
         public override void Draw(SpriteBatch theBatch)
         {
+            mTerrain.Draw(theBatch);
             mBadGuyManager.Draw(theBatch);
             mBoxer.Draw(theBatch);
             mVisualEffectManager.Draw(theBatch);

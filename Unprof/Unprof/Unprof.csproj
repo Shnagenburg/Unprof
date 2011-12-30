@@ -115,7 +115,9 @@
     <Compile Include="Explosion.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="MenuScreen.cs" />
+    <Compile Include="Meteor.cs" />
     <Compile Include="OptionsScreen.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="ScreenUtil.cs" />
     <Compile Include="SheetedSprite.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="Terrain.cs" />
     <Compile Include="VisualEffectManager.cs" />
   </ItemGroup>
   <ItemGroup>

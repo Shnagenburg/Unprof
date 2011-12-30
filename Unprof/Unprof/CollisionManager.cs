@@ -23,20 +23,20 @@ namespace Unprof
 
         static public void CheckBoxerAgainstRockets(Boxer boxer)
         {
-            foreach (Rocket rocket in CUtil.CurrentGame.BadGuyManager.Rockets)
+            foreach (Projectile proj in CUtil.CurrentGame.BadGuyManager.Projectiles)
             {
                 if (
-                    boxer.Position.X + boxer.BoundingBox.Width > rocket.Position.X && boxer.Position.X < rocket.Position.X + rocket.BoundingBox.Width &&
-                    boxer.Position.Y + boxer.BoundingBox.Height > rocket.Position.Y && boxer.Position.Y < rocket.Position.Y + rocket.BoundingBox.Height
+                    boxer.Position.X + boxer.BoundingBox.Width > proj.Position.X && boxer.Position.X < proj.Position.X + proj.BoundingBox.Width &&
+                    boxer.Position.Y + boxer.BoundingBox.Height / 2 > proj.Position.Y - proj.BoundingBox.Height / 2 && boxer.Position.Y - boxer.BoundingBox.Height / 2 < proj.Position.Y + proj.BoundingBox.Height / 2
                     )
                 {
                     if (boxer.CurrentState == Boxer.State.DuckAndCovering)
                     {
-                        rocket.Die();
+                        proj.Die();
                     }
                     else
                     {
-                        rocket.Explode();
+                        proj.Explode();
                     }
                 }
             }

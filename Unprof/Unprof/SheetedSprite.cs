@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Unprof
 {
-    class SheetedSprite : Sprite
+    public class SheetedSprite : Sprite
     {
         Rectangle mFrameRect;
         float iTimer;

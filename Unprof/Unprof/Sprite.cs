@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Unprof
 {
-    class Sprite
+    public class Sprite
     {
         protected float fScale;
 

@@ -23,6 +23,11 @@ namespace Unprof
         public Texture2D RocketIdle;
         public Texture2D RocketDying;
 
+        public Texture2D MeteorIdle;
+        public Texture2D MeteorDying;
+
+        public Texture2D Terrain1;
+
         public Texture2D Explosion1;
 
         public void LoadContentForGame(ContentManager content)
@@ -33,6 +38,11 @@ namespace Unprof
 
             RocketIdle = content.Load<Texture2D>("rocket1");
             RocketDying = content.Load<Texture2D>("rocket1");
+
+            MeteorIdle = content.Load<Texture2D>("meteor");
+            MeteorDying = content.Load<Texture2D>("meteor");
+
+            Terrain1 = content.Load<Texture2D>("terrain1");
 
             Explosion1 = content.Load<Texture2D>("explos1");
         }
