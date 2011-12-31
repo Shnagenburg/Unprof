@@ -197,35 +197,43 @@ namespace Unprof
             if (currentHeightOfTerrain == -1) // Are we on the last stretch?
                 currentHeightOfTerrain = heightMap[heightMap.Length - 1].Y;
 
-            // Now that we know the height of the terrain, if boxer is too low push him up
+            // Now that we know the height of the terrain, check if boxer is inside the terrain
             if (Position.Y > SCREEN_HEIGHT - currentHeightOfTerrain)
             {
-                // Did he cross a fault line?
-                bool denyLift = true;
-                bool denySlide = true;
-                if (iLastHeightOfTerrain > currentHeightOfTerrain) // The fault was a drop
-                {
-                    denyLift = false;
-                }
-                else if (iLastHeightOfTerrain < currentHeightOfTerrain) // the fault wasnt a drop
-                {
-                    denySlide = true;
-                    fPosX = lastPosition.X;
-                }
-                else if (iLastHeightOfTerrain == currentHeightOfTerrain)
-                {
-                    denySlide = true;
-                    //fPosX = lastPosition.X;
-                }
-
-                if (!denyLift)
-                    fPosY = SCREEN_HEIGHT - (float)currentHeightOfTerrain;
-
-                if (!denyLift)
-                    iLastHeightOfTerrain = currentHeightOfTerrain;
+                // hes inside of terrain, resolve y
                 if (lastPosition.Y < SCREEN_HEIGHT - currentHeightOfTerrain)
-                    iLastHeightOfTerrain = currentHeightOfTerrain;
+                {
+                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain;
+                }
+
                 return true;
+            }
+            return false;
+        }
+
+
+        private bool CheckIfHittingWall(Vector2 lastposition)
+        {
+
+            Point[] heightMap = CUtil.CurrentGame.Terrain.MasterHeights;
+            int currentX = (int)Position.X;
+            int currentHeightOfTerrain = -1;
+
+            // Find the height that we stand on
+            for (int i = 0; i < heightMap.Length - 1; i++)
+            {
+                if (currentX > heightMap[i].X && currentX < heightMap[i + 1].X)
+                {
+                    currentHeightOfTerrain = heightMap[i].Y;
+                }
+            }
+            if (currentHeightOfTerrain == -1) // Are we on the last stretch?
+                currentHeightOfTerrain = heightMap[heightMap.Length - 1].Y;
+
+
+            if (Position.Y > SCREEN_HEIGHT - currentHeightOfTerrain)
+            {
+
             }
 
             return false;
