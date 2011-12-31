@@ -38,16 +38,18 @@ namespace Unprof
             mCutOffMapping = new List<Vector2>();
             mCutOffMappingSources = new List<Rectangle>(); 
 
-            Point p1 = new Point(0, 150);
-            Point p2 = new Point(300, 0);
-            Point p3 = new Point(500, 300);
-            Point p4 = new Point(1000, 0);
+            Point p1 = new Point(0, 300);
+            Point p2 = new Point(200, 10);
+            Point p3 = new Point(300, 50);
+            Point p4 = new Point(350, 200);
+            Point p5 = new Point(1000, 0);
 
-            mMasterHeights = new Point[4];
+            mMasterHeights = new Point[5];
             mMasterHeights[0] = p1;
             mMasterHeights[1] = p2;
             mMasterHeights[2] = p3;
             mMasterHeights[3] = p4;
+            mMasterHeights[4] = p5;
 
             OffsetPosition = Vector2.Zero;
 

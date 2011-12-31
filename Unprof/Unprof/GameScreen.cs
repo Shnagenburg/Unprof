@@ -33,7 +33,9 @@ namespace Unprof
             get { return mBadGuyManager; }
             set { mBadGuyManager = value; }
         }
-        
+
+        Background mBackground;
+
         Terrain mTerrain;
         public Terrain Terrain
         {
@@ -58,6 +60,7 @@ namespace Unprof
         {
             mBoxer = new Boxer(CUtil.ResourcePool);
             mBadGuyManager = new BadGuyManager(3000);
+            mBackground = new Background(CUtil.ResourcePool);
             mTerrain = new Terrain(CUtil.ResourcePool.Terrain1);
             mVisualEffectManager = new VisualEffectManager();
         }
@@ -71,8 +74,11 @@ namespace Unprof
         /// <param name="prevState"></param>
         public override void Update(GameTime gameTime, KeyboardState keyState, KeyboardState prevState)
         {
+            CUtil.Camera.Update(gameTime);
+
             mBoxer.Update(gameTime, keyState, prevState);
             mBadGuyManager.Update(gameTime);
+            mBackground.Update(gameTime);
             mTerrain.Update(gameTime);
             mVisualEffectManager.Update(gameTime);
             base.Update(gameTime);
@@ -84,11 +90,20 @@ namespace Unprof
         /// <param name="theBatch"></param>
         public override void Draw(SpriteBatch theBatch)
         {
+            theBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, CUtil.Camera.BackgroundTransformationMatrix);
+            mBackground.Draw(theBatch);
+            theBatch.End();
+
+            // TODO: Add your drawing code here
+            theBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, CUtil.Camera.TransformationMatrix);
+            
             mTerrain.Draw(theBatch);
             mBadGuyManager.Draw(theBatch);
             mBoxer.Draw(theBatch);
             mVisualEffectManager.Draw(theBatch);
             base.Draw(theBatch);
+
+            theBatch.End();
         }
 
 

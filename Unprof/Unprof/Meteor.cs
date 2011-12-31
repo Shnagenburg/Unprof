@@ -41,7 +41,7 @@ namespace Unprof
             }
             mCurrentSprite.Update(gameTime);
 
-            Rotation += SPIN_SPEED * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            Rotation += SPIN_SPEED * CUtil.GameMilliseconds;
 
             // Check if out of bounds
             if (fPosX > 800 || fPosX < 0 || fPosY < 0 || fPosY > 480)
@@ -51,15 +51,15 @@ namespace Unprof
 
         private void MoveForward(GameTime gameTime)
         {
-            Position -= mVelocity * (float)gameTime.ElapsedGameTime.Milliseconds;
+            Position -= mVelocity * CUtil.GameMilliseconds;
         }
 
 
         private void FlyOff(GameTime gameTime)
         {
-            fPosX += mDirection.X * (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
-            fPosY += mDirection.Y * (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
-            Rotation += (float)gameTime.ElapsedGameTime.Milliseconds / 100; // REVISIT 
+            fPosX += mDirection.X * CUtil.GameMilliseconds / 1000;
+            fPosY += mDirection.Y * CUtil.GameMilliseconds / 1000;
+            Rotation += CUtil.GameMilliseconds / 100; // REVISIT 
         }
 
 

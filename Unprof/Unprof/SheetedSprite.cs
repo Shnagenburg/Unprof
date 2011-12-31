@@ -44,7 +44,7 @@ namespace Unprof
 
         public void Update(GameTime gameTime)
         {
-            iTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            iTimer += CUtil.GameMilliseconds;
             if (iTimer > iDelay)
             {
                 NextFrame();

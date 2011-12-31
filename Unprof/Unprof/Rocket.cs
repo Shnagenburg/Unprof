@@ -46,14 +46,14 @@ namespace Unprof
 
         private void MoveForward(GameTime gameTime)
         {
-            fPosX -= mVelocity.X * (float)gameTime.ElapsedGameTime.Milliseconds;
+            fPosX -= mVelocity.X * CUtil.GameMilliseconds;
         }
 
         private void FlyOff(GameTime gameTime)
         {
-            fPosX += mDirection.X * (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
-            fPosY += mDirection.Y * (float)gameTime.ElapsedGameTime.Milliseconds / 1000;
-            Rotation += (float)gameTime.ElapsedGameTime.Milliseconds / 100; // REVISIT 
+            fPosX += mDirection.X * CUtil.GameMilliseconds / 1000;
+            fPosY += mDirection.Y * CUtil.GameMilliseconds / 1000;
+            Rotation += CUtil.GameMilliseconds / 100; // REVISIT 
         }
 
 

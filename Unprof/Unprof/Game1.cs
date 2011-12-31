@@ -22,6 +22,7 @@ namespace Unprof
         Screen currentScreen;
         ResourcePool resourcePool;
         KeyboardState prevState;
+        Camera camera;
 
         public Game1()
         {
@@ -42,9 +43,13 @@ namespace Unprof
             resourcePool = new ResourcePool();
             CUtil.ResourcePool = this.resourcePool;
 
+            CUtil.GameRate = 1.0f;
+
             // TODO: Add your initialization logic here
             prevState = Keyboard.GetState();
-            
+
+            camera = new Camera();
+            CUtil.Camera = camera;
 
             base.Initialize();
         }
@@ -83,6 +88,8 @@ namespace Unprof
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            CUtil.GameTime = gameTime;
+
             KeyboardState keyState = Keyboard.GetState();
 
             // Allows the game to exit
@@ -103,12 +110,9 @@ namespace Unprof
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
+            
             currentScreen.Draw(spriteBatch);
 
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

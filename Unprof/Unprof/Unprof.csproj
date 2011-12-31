@@ -107,9 +107,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background.cs" />
     <Compile Include="BadGuy.cs" />
     <Compile Include="BadGuyManager.cs" />
     <Compile Include="Boxer.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="CollisionManager.cs" />
     <Compile Include="CUtil.cs" />
     <Compile Include="Explosion.cs" />

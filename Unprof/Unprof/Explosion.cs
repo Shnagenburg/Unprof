@@ -122,7 +122,7 @@ namespace Unprof
 
         private void MoveForward(GameTime gameTime)
         {
-            fPosX -= mVelocity.X * (float)gameTime.ElapsedGameTime.Milliseconds;
+            fPosX -= mVelocity.X * CUtil.GameMilliseconds;
         }
 
         public void Draw(SpriteBatch spriteBatch)

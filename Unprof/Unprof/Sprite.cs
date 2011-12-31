@@ -49,6 +49,8 @@ namespace Unprof
             mTexture = texture;
             mRotationCenter = new Vector2(texture.Width / 2, texture.Height / 2);
             fScale = 1.0f;
+
+            mBoundingBox = new Rectangle(0, 0, mTexture.Width, mTexture.Height);
         }
 
         public void Draw(SpriteBatch theBatch)

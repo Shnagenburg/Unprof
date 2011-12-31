@@ -28,6 +28,8 @@ namespace Unprof
 
         public Texture2D Terrain1;
 
+        public Texture2D Background1;
+
         public Texture2D Explosion1;
 
         public void LoadContentForGame(ContentManager content)
@@ -42,7 +44,9 @@ namespace Unprof
             MeteorIdle = content.Load<Texture2D>("meteor");
             MeteorDying = content.Load<Texture2D>("meteor");
 
-            Terrain1 = content.Load<Texture2D>("terrain1");
+            Terrain1 = content.Load<Texture2D>("wood");
+
+            Background1 = content.Load<Texture2D>("background2");
 
             Explosion1 = content.Load<Texture2D>("explos1");
         }

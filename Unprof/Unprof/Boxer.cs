@@ -90,7 +90,7 @@ namespace Unprof
             mSpriteJabbing = new SheetedSprite(resourcePool.BoxerJabbing, 4, 100);
             mSpriteDuckAndCover = new SheetedSprite(resourcePool.BoxerDuckAndCover, 4, 100);
             mCurrentSprite = mSpriteIdle;
-            Position = new Vector2(250, 200);
+            Position = new Vector2(40, 0);
             mState = State.Idle;
             mMoveVector = Vector2.Zero;
             bCanJump = true;
@@ -146,15 +146,22 @@ namespace Unprof
                 Jump();
             }
             
+            // slo mo testing
+            if (keyState.IsKeyDown(Keys.Q))
+                CUtil.GameRate = 1.0f;
+            if (keyState.IsKeyDown(Keys.E))
+                CUtil.GameRate = 0.5f;
+
             // X Movement
             mMoveVector.X = 0;
             if (keyState.IsKeyDown(Keys.D))
                 mMoveVector.X += 1;
             if (keyState.IsKeyDown(Keys.A))
                 mMoveVector.X -= 1;
-            Position += mMoveVector * MOVE_SPEED * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            Position += mMoveVector * MOVE_SPEED * CUtil.GameMilliseconds;
 
-
+            // Screen scrolling
+            fPosX += CUtil.CameraScrollSpeed * CUtil.GameMilliseconds;
 
             //////// testing
             //mMoveVector.Y = 0;
@@ -164,16 +171,12 @@ namespace Unprof
             //    mMoveVector.Y += 1;
             ////////
 
-            // Y movement
-            if ( !CheckIfInGround(mLastPosition) ) // REVISIT 
-            {
-                mMoveVector.Y += GRAVITY;
-            }
-            else
-            {
-                mMoveVector.Y = 0;
-                bCanJump = true;
-            }
+            mMoveVector.Y += GRAVITY;
+            
+            // Y adjustments
+            CheckIfInGround(mLastPosition);
+
+            // X adjustments
             CheckIfHittingWall(mLastPosition);
             
         }
@@ -182,13 +185,16 @@ namespace Unprof
         private bool CheckIfInGround(Vector2 lastPosition)
         {
             Point[] heightMap = CUtil.CurrentGame.Terrain.MasterHeights;
-            int currentX = (int)Position.X;
+
+            //int currentX = (int)Position.X;
+            int currentX = (int)lastPosition.X;
             int currentHeightOfTerrain = -1;
+            int heightOfBoxer = mCurrentSprite.Boundingbox.Height / 2;
 
             // Find the height that we stand on
             for (int i = 0; i < heightMap.Length - 1; i++)
             {
-                if (currentX > heightMap[i].X && currentX < heightMap[i + 1].X)
+                if (currentX > heightMap[i].X && currentX <= heightMap[i + 1].X)
                 {
                     currentHeightOfTerrain = heightMap[i].Y;
                 }
@@ -199,20 +205,26 @@ namespace Unprof
                 currentHeightOfTerrain = heightMap[heightMap.Length - 1].Y;
 
             // Now that we know the height of the terrain, check if boxer is inside the terrain
-            if (Position.Y > SCREEN_HEIGHT - currentHeightOfTerrain)
+            if (Position.Y + heightOfBoxer > SCREEN_HEIGHT - currentHeightOfTerrain)
             {
                 // hes inside of terrain, resolve y
-                if (lastPosition.Y < SCREEN_HEIGHT - currentHeightOfTerrain)
+                // move on top if he was above
+                if (lastPosition.Y + heightOfBoxer < SCREEN_HEIGHT - currentHeightOfTerrain)
                 {
-                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain - 1;
+                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain - 1 - (mCurrentSprite.Boundingbox.Height / 2);
+
+                    bCanJump = true;
                 }
+
+
+                mMoveVector.Y = 0;
 
                 return true;
             }
             return false;
         }
 
-
+        // Handle X stuffs
         private bool CheckIfHittingWall(Vector2 lastposition)
         {
 
@@ -220,6 +232,7 @@ namespace Unprof
             int targetWallX = -1;
             int currentX = (int)Position.X;
             int currentHeightOfTerrain = -1;
+            int heightOfBoxer = mCurrentSprite.Boundingbox.Height / 2;
 
             // Find the height that we stand on
             for (int i = 0; i < heightMap.Length - 1; i++)
@@ -229,10 +242,14 @@ namespace Unprof
                     currentHeightOfTerrain = heightMap[i].Y;
 
                     // which side are we closer to?
-                    //if (fPosX - heightMap[i].X < fPosX - heightMap[i - 1] )
-                    //{
-                    //    targetWallX = heightMap[i].X;
-                    //}
+                    if (  Math.Abs (fPosX - heightMap[i].X)  <  Math.Abs( fPosX - heightMap[i + 1].X) )
+                    {
+                        targetWallX = heightMap[i].X;
+                    }
+                    else
+                    {
+                        targetWallX = heightMap[i + 1].X;
+                    }
                 }
             }
             if (currentHeightOfTerrain == -1) // Are we on the last stretch?
@@ -242,10 +259,13 @@ namespace Unprof
             }
 
             // the boxer is inside the box
-            if (Position.Y > SCREEN_HEIGHT - currentHeightOfTerrain)
+            if (Position.Y + heightOfBoxer > SCREEN_HEIGHT - currentHeightOfTerrain)
             {
                 // push him to the side
-                fPosX = targetWallX;
+                if (lastposition.X < fPosX)
+                    fPosX = targetWallX;
+                else
+                    fPosX = targetWallX + 1;
 
             }
 
