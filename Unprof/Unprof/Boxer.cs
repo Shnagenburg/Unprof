@@ -90,7 +90,7 @@ namespace Unprof
             mSpriteJabbing = new SheetedSprite(resourcePool.BoxerJabbing, 4, 100);
             mSpriteDuckAndCover = new SheetedSprite(resourcePool.BoxerDuckAndCover, 4, 100);
             mCurrentSprite = mSpriteIdle;
-            Position = new Vector2(300, 200);
+            Position = new Vector2(250, 200);
             mState = State.Idle;
             mMoveVector = Vector2.Zero;
             bCanJump = true;
@@ -174,6 +174,7 @@ namespace Unprof
                 mMoveVector.Y = 0;
                 bCanJump = true;
             }
+            CheckIfHittingWall(mLastPosition);
             
         }
 
@@ -203,7 +204,7 @@ namespace Unprof
                 // hes inside of terrain, resolve y
                 if (lastPosition.Y < SCREEN_HEIGHT - currentHeightOfTerrain)
                 {
-                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain;
+                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain - 1;
                 }
 
                 return true;
@@ -216,6 +217,7 @@ namespace Unprof
         {
 
             Point[] heightMap = CUtil.CurrentGame.Terrain.MasterHeights;
+            int targetWallX = -1;
             int currentX = (int)Position.X;
             int currentHeightOfTerrain = -1;
 
@@ -225,14 +227,25 @@ namespace Unprof
                 if (currentX > heightMap[i].X && currentX < heightMap[i + 1].X)
                 {
                     currentHeightOfTerrain = heightMap[i].Y;
+
+                    // which side are we closer to?
+                    //if (fPosX - heightMap[i].X < fPosX - heightMap[i - 1] )
+                    //{
+                    //    targetWallX = heightMap[i].X;
+                    //}
                 }
             }
             if (currentHeightOfTerrain == -1) // Are we on the last stretch?
+            {
                 currentHeightOfTerrain = heightMap[heightMap.Length - 1].Y;
+                targetWallX = heightMap[heightMap.Length - 1].X;
+            }
 
-
+            // the boxer is inside the box
             if (Position.Y > SCREEN_HEIGHT - currentHeightOfTerrain)
             {
+                // push him to the side
+                fPosX = targetWallX;
 
             }
 
