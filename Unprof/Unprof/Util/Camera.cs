@@ -12,7 +12,19 @@ namespace Unprof
     class Camera
     {
         float xOffset;
+        public float XOffset
+        {
+            get { return xOffset; }
+            set { xOffset = value; }
+        }
+
+
         float yOffset;
+        public float YOffset
+        {
+            get { return yOffset; }
+            set { yOffset = value; }
+        }
 
         public Matrix TransformationMatrix
         {

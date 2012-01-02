@@ -39,7 +39,7 @@ namespace Unprof
             mCurrentSprite.Update(gameTime);
 
             // Check if out of bounds
-            if (fPosX > 800 || fPosX < 0 || fPosY < 0 || fPosY > 480)
+            if (fPosX > 800 - CUtil.Camera.XOffset || fPosX < 0 - CUtil.Camera.XOffset || fPosY < 0 || fPosY > 480)
                 bIsMarkedForDeletion = true;
             
         }

@@ -38,18 +38,20 @@ namespace Unprof
             mCutOffMapping = new List<Vector2>();
             mCutOffMappingSources = new List<Rectangle>(); 
 
-            Point p1 = new Point(0, 300);
+            Point p1 = new Point(0, 50);
             Point p2 = new Point(200, 10);
             Point p3 = new Point(300, 50);
-            Point p4 = new Point(350, 200);
-            Point p5 = new Point(1000, 0);
+            Point p4 = new Point(350, 100);
+            Point p5 = new Point(1000, 20);
+            Point p6 = new Point(5000, 0);
 
-            mMasterHeights = new Point[5];
+            mMasterHeights = new Point[6];
             mMasterHeights[0] = p1;
             mMasterHeights[1] = p2;
             mMasterHeights[2] = p3;
             mMasterHeights[3] = p4;
             mMasterHeights[4] = p5;
+            mMasterHeights[5] = p6;
 
             OffsetPosition = Vector2.Zero;
 
@@ -138,6 +140,26 @@ namespace Unprof
                 }
             }
 
+        }
+
+
+        /// <summary>
+        /// Given a location X, return the height of the terrain at that location.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public int GetHeightOfX(float x)
+        {
+            // Find the height that we stand on
+            for (int i = 0; i < mMasterHeights.Length - 1; i++)
+            {
+                if (x > mMasterHeights[i].X && x <= mMasterHeights[i + 1].X)
+                {
+                    return mMasterHeights[i].Y;
+                }
+            }
+
+            return mMasterHeights[mMasterHeights.Length - 1].Y;
         }
 
 

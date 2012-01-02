@@ -15,6 +15,16 @@ namespace Unprof
     public class Sprite
     {
         protected float fScale;
+        public virtual float Scale
+        {
+            get { return fScale; }
+            set
+            {
+                fScale = value;
+                mBoundingBox.Width = (int) ( (float)mTexture.Width * fScale);
+                mBoundingBox.Height = (int) ( (float)mTexture.Height * fScale); 
+            }
+        }
 
         protected float fRotation;
         public float Rotation

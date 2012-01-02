@@ -16,13 +16,15 @@ namespace Unprof
 {
     class CUtil
     {
+        public const int SCREEN_WIDTH = 800;
+        public const int SCREEN_HEIGHT = 480;
         static public GraphicsDevice GraphicsDevice;
         static public GameScreen CurrentGame;
         static public ResourcePool ResourcePool;
         static public float GameRate;
         static public GameTime GameTime;
         static public Camera Camera;
-        static public float CameraScrollSpeed = 0.04f;
+        static public float CameraScrollSpeed = 0.04f; //0.04f;
 
         /// <summary>
         /// The time since the last update of the game loop, with the game rate applied

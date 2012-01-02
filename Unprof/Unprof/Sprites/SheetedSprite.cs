@@ -17,6 +17,17 @@ namespace Unprof
     public class SheetedSprite : Sprite
     {
         Rectangle mFrameRect;
+        public override float Scale
+        {
+            get { return fScale; }
+            set
+            {
+                fScale = value;
+                mBoundingBox.Width = (int)((float)mTexture.Width / iFrames * fScale);
+                mBoundingBox.Height = (int)((float)mTexture.Height * fScale);
+            }
+        }
+
         float iTimer;
         int iFrames;
         int iDelay;

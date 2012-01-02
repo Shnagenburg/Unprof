@@ -20,6 +20,17 @@ namespace Unprof
             set { bIsMarkedForDeletion = value; }
         }
 
+
+        public float Scale
+        {
+            get { return mCurrentSprite.Scale; }
+            set
+            {
+                mSpriteDying.Scale = value;
+                mSpriteIdle.Scale = value;
+            }
+        }
+
         protected SheetedSprite mCurrentSprite;
         protected SheetedSprite mSpriteIdle, mSpriteDying;
 

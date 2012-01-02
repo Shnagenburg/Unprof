@@ -51,6 +51,19 @@ namespace Unprof
             }
         }
 
+
+        public float Scale
+        {
+            get { return mCurrentSprite.Scale; }
+            set
+            {
+                mSpriteJabbing.Scale = value;
+                mSpriteIdle.Scale = value;
+                mSpriteDuckAndCover.Scale = value;
+            }
+        }
+
+
         protected float fPosX
         {
             get { return mCurrentSprite.Position.X; }

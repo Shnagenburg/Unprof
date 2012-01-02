@@ -59,7 +59,8 @@ namespace Unprof
         public GameScreen(EventHandler theScreenEvent): base(theScreenEvent)
         {
             mBoxer = new Boxer(CUtil.ResourcePool);
-            mBadGuyManager = new BadGuyManager(3000);
+            mBoxer.Scale = 0.5f;
+            mBadGuyManager = new BadGuyManager(1000);
             mBackground = new Background(CUtil.ResourcePool);
             mTerrain = new Terrain(CUtil.ResourcePool.Terrain1);
             mVisualEffectManager = new VisualEffectManager();

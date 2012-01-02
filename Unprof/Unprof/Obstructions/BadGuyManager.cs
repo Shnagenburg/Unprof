@@ -82,27 +82,43 @@ namespace Unprof
 
         public void AddBadGuy()
         {
-            BadGuy badguy = new BadGuy(CUtil.ResourcePool.BoxerIdle, CUtil.ResourcePool.BoxerJabbing, 
-                new Vector2(800, 300), new Vector2(0.12f, 0) );
+            Vector2 vec = new Vector2(CUtil.SCREEN_WIDTH - (CUtil.Camera.XOffset), 0);
+
+            BadGuy badguy = new BadGuy(CUtil.ResourcePool.BoxerIdle, CUtil.ResourcePool.BoxerJabbing,
+                vec, new Vector2(0.0f, 0));
+            badguy.Scale = 0.5f;
+
+
+            badguy.fPosY = CUtil.SCREEN_HEIGHT - CUtil.CurrentGame.Terrain.GetHeightOfX(vec.X) - (badguy.BoundingBox.Height / 2);
+
             mBadGuys.Add(badguy);
         }
 
         public void AddRocket()
         {
-            Rocket rocket = new Rocket(CUtil.ResourcePool.RocketIdle, CUtil.ResourcePool.RocketDying, 
-                new Vector2(600, 300), new Vector2(0.12f, 0) );
+            Rocket rocket = new Rocket(CUtil.ResourcePool.RocketIdle, CUtil.ResourcePool.RocketDying,
+                new Vector2(CUtil.SCREEN_WIDTH - (CUtil.Camera.XOffset), 300), new Vector2(0.22f, 0));
             mProjectiles.Add(rocket);
         }
 
         public void AddMeteor()
         {
-            float ySpeed = rand.Next(50, 100);
-            float xSpeed = rand.Next(50, 100);
+            float ySpeed = rand.Next(50, 150);
+            float xSpeed = rand.Next(0, 100);
             Vector2 velocity = new Vector2(xSpeed / 500, -ySpeed / 500);
-            //Vector2 velocity = new Vector2(0, 0);
+
+
+            float xPosition = rand.Next(
+                (int)( (CUtil.SCREEN_WIDTH / 2) - CUtil.Camera.XOffset),
+                (int)(CUtil.SCREEN_WIDTH - CUtil.Camera.XOffset)
+                );
+            float yPosition = 5;
+            Vector2 position = new Vector2(xPosition, yPosition);
 
             Meteor meteor = new Meteor(CUtil.ResourcePool.MeteorIdle, CUtil.ResourcePool.MeteorIdle,
-                new Vector2(600, 0), velocity );
+                position, velocity);
+
+            meteor.Scale = 0.5f;
             mProjectiles.Add(meteor);
         }
 
