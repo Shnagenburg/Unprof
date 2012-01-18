@@ -16,9 +16,10 @@ namespace Unprof
 {
     class CUtil
     {
-        public const int SCREEN_WIDTH = 800;
-        public const int SCREEN_HEIGHT = 480;
+        public const int SCREEN_WIDTH = 480;
+        public const int SCREEN_HEIGHT = 320;
         static public GraphicsDevice GraphicsDevice;
+        static public Level CurrentLevel;
         static public GameScreen CurrentGame;
         static public ResourcePool ResourcePool;
         static public float GameRate;

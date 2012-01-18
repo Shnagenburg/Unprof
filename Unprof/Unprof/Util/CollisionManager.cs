@@ -9,7 +9,7 @@ namespace Unprof
     {
         static public void CheckJabAgainstBadGuys(Boxer boxer)
         {
-            foreach (BadGuy badguy in CUtil.CurrentGame.BadGuyManager.BadGuys)
+            foreach (BadGuy badguy in CUtil.CurrentLevel.BadGuyManager.BadGuys)
             {
                 //if (RectA.X1 < RectB.X2 && 
                 //    RectA.X2 > RectB.X1 &&
@@ -29,7 +29,7 @@ namespace Unprof
 
         static public void CheckBoxerAgainstRockets(Boxer boxer)
         {
-            foreach (Projectile proj in CUtil.CurrentGame.BadGuyManager.Projectiles)
+            foreach (Projectile proj in CUtil.CurrentLevel.BadGuyManager.Projectiles)
             {
                 if (
                     boxer.Position.X - boxer.BoundingBox.Width / 2 < proj.Position.X + proj.BoundingBox.Width / 2 &&

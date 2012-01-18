@@ -27,6 +27,9 @@ namespace Unprof
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = CUtil.SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = CUtil.SCREEN_HEIGHT;
+            
             Content.RootDirectory = "Content";
         }
 

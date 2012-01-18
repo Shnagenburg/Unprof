@@ -12,7 +12,6 @@ namespace Unprof
 {
     class Terrain
     {
-        const int SCREEN_HEIGHT = 480; 
         const float SCROLL_SPEED = 0.02f;
 
         // The X and Y values of where the height changes
@@ -85,9 +84,9 @@ namespace Unprof
                     {
                         for (int a = 0; a < numberInColumn; a++)
                         {                            
-                            mMapping.Add(new Vector2(i, SCREEN_HEIGHT -   ((a + 1) * textHeight)   ));
+                            mMapping.Add(new Vector2(i, CUtil.SCREEN_HEIGHT -   ((a + 1) * textHeight)   ));
                         }
-                        mCutOffMapping.Add(new Vector2(i, SCREEN_HEIGHT - y) );
+                        mCutOffMapping.Add(new Vector2(i, CUtil.SCREEN_HEIGHT - y));
                         mCutOffMappingSources.Add(
                                 new Rectangle(
                                     0,
@@ -101,7 +100,7 @@ namespace Unprof
                         for (int a = 0; a < numberInColumn; a++)
                         {
                             mCutOffMapping.Add(
-                                new Vector2(   i,   SCREEN_HEIGHT - ((a + 1) * textHeight)   )
+                                new Vector2(i, CUtil.SCREEN_HEIGHT - ((a + 1) * textHeight))
                                 );
                             mCutOffMappingSources.Add(
                                 new Rectangle(
@@ -111,8 +110,8 @@ namespace Unprof
                                     textHeight)
                             );
                         }
-                        mCutOffMapping.Add(  
-                            new Vector2(i, SCREEN_HEIGHT - y) 
+                        mCutOffMapping.Add(
+                            new Vector2(i, CUtil.SCREEN_HEIGHT - y) 
                             );
                         mCutOffMappingSources.Add(
                                 new Rectangle(

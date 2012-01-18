@@ -12,8 +12,7 @@ namespace Unprof
 {
     class Boxer
     {
-        const int SCREEN_HEIGHT = 480; // REVISIT
-        const float MOVE_SPEED = 0.20f;
+         const float MOVE_SPEED = 0.20f;
         const float GRAVITY = 0.12f;
         const int JUMP_POWER = 3;
         bool bCanJump;
@@ -197,7 +196,7 @@ namespace Unprof
         // Check to see if the boxer is in the ground.
         private bool CheckIfInGround(Vector2 lastPosition)
         {
-            Point[] heightMap = CUtil.CurrentGame.Terrain.MasterHeights;
+            Point[] heightMap = CUtil.CurrentLevel.Terrain.MasterHeights;
 
             //int currentX = (int)Position.X;
             int currentX = (int)lastPosition.X;
@@ -218,13 +217,13 @@ namespace Unprof
                 currentHeightOfTerrain = heightMap[heightMap.Length - 1].Y;
 
             // Now that we know the height of the terrain, check if boxer is inside the terrain
-            if (Position.Y + heightOfBoxer > SCREEN_HEIGHT - currentHeightOfTerrain)
+            if (Position.Y + heightOfBoxer > CUtil.SCREEN_HEIGHT - currentHeightOfTerrain)
             {
                 // hes inside of terrain, resolve y
                 // move on top if he was above
-                if (lastPosition.Y + heightOfBoxer < SCREEN_HEIGHT - currentHeightOfTerrain)
+                if (lastPosition.Y + heightOfBoxer < CUtil.SCREEN_HEIGHT - currentHeightOfTerrain)
                 {
-                    fPosY = SCREEN_HEIGHT - currentHeightOfTerrain - 1 - (mCurrentSprite.Boundingbox.Height / 2);
+                    fPosY = CUtil.SCREEN_HEIGHT - currentHeightOfTerrain - 1 - (mCurrentSprite.Boundingbox.Height / 2);
 
                     bCanJump = true;
                 }
@@ -241,7 +240,7 @@ namespace Unprof
         private bool CheckIfHittingWall(Vector2 lastposition)
         {
 
-            Point[] heightMap = CUtil.CurrentGame.Terrain.MasterHeights;
+            Point[] heightMap = CUtil.CurrentLevel.Terrain.MasterHeights;
             int targetWallX = -1;
             int currentX = (int)Position.X;
             int currentHeightOfTerrain = -1;
@@ -272,7 +271,7 @@ namespace Unprof
             }
 
             // the boxer is inside the box
-            if (Position.Y + heightOfBoxer > SCREEN_HEIGHT - currentHeightOfTerrain)
+            if (Position.Y + heightOfBoxer > CUtil.SCREEN_HEIGHT - currentHeightOfTerrain)
             {
                 // push him to the side
                 if (lastposition.X < fPosX)

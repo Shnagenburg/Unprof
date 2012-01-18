@@ -81,7 +81,7 @@ namespace Unprof
 
         public override void Explode()
         {
-            CUtil.CurrentGame.VisualEffectManager.AddExplosion(this.Position, this.mVelocity);
+            CUtil.CurrentLevel.VisualEffectManager.AddExplosion(this.Position, this.mVelocity);
             bIsMarkedForDeletion = true;
         }
     }

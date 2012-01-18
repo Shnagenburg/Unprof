@@ -89,7 +89,7 @@ namespace Unprof
             badguy.Scale = 0.5f;
 
 
-            badguy.fPosY = CUtil.SCREEN_HEIGHT - CUtil.CurrentGame.Terrain.GetHeightOfX(vec.X) - (badguy.BoundingBox.Height / 2);
+            badguy.fPosY = CUtil.SCREEN_HEIGHT - CUtil.CurrentLevel.Terrain.GetHeightOfX(vec.X) - (badguy.BoundingBox.Height / 2);
 
             mBadGuys.Add(badguy);
         }

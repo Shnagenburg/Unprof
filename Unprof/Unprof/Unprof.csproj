@@ -107,6 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Level.cs" />
+    <Compile Include="LevelManager.cs" />
     <Compile Include="Sprites\Background.cs" />
     <Compile Include="Obstructions\BadGuy.cs" />
     <Compile Include="Obstructions\BadGuyManager.cs" />
